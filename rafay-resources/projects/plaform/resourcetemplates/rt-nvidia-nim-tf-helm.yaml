@@ -1,0 +1,60 @@
+apiVersion: eaas.envmgmt.io/v1
+kind: ResourceTemplate
+metadata:
+  name: rt-nvidia-nim-tf-helm # Tên Mẫu Tài nguyên
+  project: platform # Dự án của bạn
+spec:
+  provider: terraform # Chỉ định Terraform làm nhà cung cấp IaC
+  providerOptions:
+    terraform:
+      # version: "1.5.0" # (Tùy chọn) Phiên bản Terraform cụ thể
+      backendType: system # Hoặc s3, gcs, etc. theo cấu hình của bạn
+      refresh: true
+  repositoryOptions:
+    name: your-infra-git-repo # Tên kho Git được cấu hình trong Rafay
+    branch: main
+    directoryPath: terraform/nvidia-nim-helm # Đường dẫn đến mã Terraform của bạn
+  variables:
+    # Các biến này sẽ được cung cấp cho mã Terraform
+    - name: var_target_cluster_name # Sẽ nhận giá trị từ Mẫu Môi trường
+      valueType: expression
+      value: $(environment.variables.target_cluster_name)$
+      options:
+        override: { type: notallowed }
+    - name: var_nim_model # Sẽ nhận giá trị từ Mẫu Môi trường
+      valueType: expression
+      value: $(environment.variables.nim_model_to_deploy)$
+      options:
+        override: { type: notallowed }
+    - name: var_namespace # Sẽ nhận giá trị từ Mẫu Môi trường
+      valueType: expression
+      value: $(environment.variables.deployment_namespace)$
+      options:
+        override: { type: notallowed }
+    - name: var_ngc_api_key_secret # Sẽ nhận giá trị từ Mẫu Môi trường
+      valueType: expression
+      value: $(environment.variables.ngc_api_key_k8s_secret_name)$
+      options:
+        override: { type: notallowed }
+    # (Tùy chọn) Thêm các biến khác nếu cần, ví dụ: URL kho Helm, phiên bản biểu đồ
+    - name: var_nim_helm_repo_url
+      valueType: text
+      value: "https://helm.ngc.nvidia.com/nvidia" # URL kho Helm chính thức của NVIDIA
+      options:
+        override: { type: allowed } # Có thể cho phép ghi đè nếu cần
+    - name: var_nim_helm_chart_name
+      valueType: text
+      value: "nim" # Tên biểu đồ Helm cho NIM (kiểm tra tài liệu NVIDIA để biết tên chính xác)
+      options:
+        override: { type: allowed }
+    - name: var_nim_helm_chart_version
+      valueType: text
+      value: "0.1.0" # Thay thế bằng phiên bản biểu đồ NIM mong muốn
+      options:
+        override: { type: allowed }
+  outputs: # (Tùy chọn) Xuất các thông tin từ Terraform
+    - name: helm_release_status
+      value: $(resource.this.output.helm_release_status.value)$
+    - name: service_endpoint
+      value: $(resource.this.output.service_endpoint.value)$
+  version: v1

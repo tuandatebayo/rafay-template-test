@@ -1,0 +1,49 @@
+apiVersion: eaas.envmgmt.io/v1
+kind: environmenttemplate
+metadata:
+  name: nvidia-nim-tf-helm-env # Tên Mẫu Môi trường
+  project: platform # Dự án của bạn
+spec:
+  version: v1
+  agents:
+    - name: your-rafay-agent # Tác nhân Rafay có quyền truy cập vào cụm K8s
+  contexts: # (Tùy chọn) Nếu bạn có thông tin đăng nhập NGC hoặc cấu hình chung
+    - name: ngc-credentials-context
+  resources:
+    - type: dynamic
+      kind: resourcetemplate
+      name: rt-nvidia-nim-tf-helm # Tham chiếu đến Mẫu Tài nguyên Terraform
+      resourceOptions:
+        version: v1
+  variables:
+    - name: target_cluster_name # Đầu vào từ người dùng để chỉ định cụm K8s
+      valueType: text
+      options:
+        description: "Name of the target Kubernetes cluster for NIM deployment."
+        required: true
+        override:
+          type: allowed
+    - name: nim_model_to_deploy # Ví dụ: 'llama2-7b'
+      valueType: text
+      options:
+        description: "NVIDIA NIM model to deploy (e.g., llama2-7b, mixtral-8x7b)."
+        required: true
+        override:
+          type: allowed
+    - name: deployment_namespace
+      valueType: text
+      value: "nim-services" # Giá trị mặc định
+      options:
+        description: "Kubernetes namespace for NIM deployment."
+        required: true
+        override:
+          type: allowed
+    - name: ngc_api_key_k8s_secret_name # Tên của Kubernetes secret chứa khóa API NGC
+      valueType: text
+      value: "ngc-api-key" # Giá trị mặc định
+      options:
+        description: "Kubernetes secret name containing the NGC API Key (key name within secret should be 'NGC_API_KEY')."
+        required: true
+        override:
+          type: allowed
+  versionState: active
