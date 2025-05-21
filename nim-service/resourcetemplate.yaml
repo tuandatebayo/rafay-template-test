@@ -1,0 +1,9 @@
+apiVersion: infra.rafay.dev/v3
+kind: ResourceTemplate
+metadata:
+  name: nim-service
+  project: platform
+spec:
+  resource:
+    files:
+      - base.yaml

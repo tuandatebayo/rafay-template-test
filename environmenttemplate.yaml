@@ -1,8 +1,8 @@
 apiVersion: eaas.envmgmt.io/v1
 kind: EnvironmentTemplate
 metadata:
-  name: llama2-inference-sku
-  project: ncp-project
+  name: nim-service
+  project: platform
 spec:
   version: v1
   resources:
@@ -11,10 +11,3 @@ spec:
       name: nim-service
       resourceOptions:
         version: v1
-  variables:
-    - name: model
-      valueType: text
-      value: llama2-13b
-    - name: replicas
-      valueType: number
-      value: 1
