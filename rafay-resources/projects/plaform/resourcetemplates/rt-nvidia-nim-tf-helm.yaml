@@ -57,4 +57,4 @@ spec:
       value: $(resource.this.output.helm_release_status.value)$
     - name: service_endpoint
       value: $(resource.this.output.service_endpoint.value)$
-  version: v1
+  version: v0
