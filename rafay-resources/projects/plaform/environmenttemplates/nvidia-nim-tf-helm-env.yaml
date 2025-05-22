@@ -4,7 +4,7 @@ metadata:
   name: nvidia-nim-tf-helm-env # Tên Mẫu Môi trường
   project: huan # Dự án của bạn
 spec:
-  version: v1
+  version: v0
   agents:
     - name: new-agent # Tác nhân Rafay có quyền truy cập vào cụm K8s
   contexts: # (Tùy chọn) Nếu bạn có thông tin đăng nhập NGC hoặc cấu hình chung
