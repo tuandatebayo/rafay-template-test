@@ -14,7 +14,7 @@ spec:
       kind: resourcetemplate
       name: rt-nvidia-nim-tf-helm # Tham chiếu đến Mẫu Tài nguyên Terraform
       resourceOptions:
-        version: v1
+        version: v0
   variables:
     - name: k8s-bcm # Đầu vào từ người dùng để chỉ định cụm K8s
       valueType: text
