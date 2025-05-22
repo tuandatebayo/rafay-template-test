@@ -2,11 +2,11 @@ apiVersion: eaas.envmgmt.io/v1
 kind: environmenttemplate
 metadata:
   name: nvidia-nim-tf-helm-env # Tên Mẫu Môi trường
-  project: platform # Dự án của bạn
+  project: huan # Dự án của bạn
 spec:
   version: v1
   agents:
-    - name: your-rafay-agent # Tác nhân Rafay có quyền truy cập vào cụm K8s
+    - name: new-agent # Tác nhân Rafay có quyền truy cập vào cụm K8s
   contexts: # (Tùy chọn) Nếu bạn có thông tin đăng nhập NGC hoặc cấu hình chung
     - name: ngc-credentials-context
   resources:
@@ -16,7 +16,7 @@ spec:
       resourceOptions:
         version: v1
   variables:
-    - name: target_cluster_name # Đầu vào từ người dùng để chỉ định cụm K8s
+    - name: k8s-bcm # Đầu vào từ người dùng để chỉ định cụm K8s
       valueType: text
       options:
         description: "Name of the target Kubernetes cluster for NIM deployment."
