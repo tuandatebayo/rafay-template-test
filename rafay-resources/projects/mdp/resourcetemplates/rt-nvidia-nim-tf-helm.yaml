@@ -2,7 +2,7 @@ apiVersion: eaas.envmgmt.io/v1
 kind: ResourceTemplate
 metadata:
   name: rt-nvidia-nim-tf-helm # Tên Mẫu Tài nguyên
-  project: mdp # Dự án của bạn
+  project: mdp 
 spec:
   provider: terraform # Chỉ định Terraform làm nhà cung cấp IaC
   providerOptions:
