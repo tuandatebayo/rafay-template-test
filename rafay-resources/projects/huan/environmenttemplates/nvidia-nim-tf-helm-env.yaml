@@ -7,7 +7,7 @@ spec:
   version: v0
   agents:
     - name: new-agent # Tác nhân Rafay có quyền truy cập vào cụm K8s
-  contexts: # (Tùy chọn) Nếu bạn có thông tin đăng nhập NGC hoặc cấu hình chung
+  contexts: 
     - name: ngc-credentials-context
   resources:
     - type: dynamic
