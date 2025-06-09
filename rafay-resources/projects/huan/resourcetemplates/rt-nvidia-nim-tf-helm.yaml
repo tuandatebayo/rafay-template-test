@@ -2,7 +2,7 @@ apiVersion: eaas.envmgmt.io/v1
 kind: ResourceTemplate
 metadata:
   name: rt-nvidia-nim-tf-helm # Tên Mẫu Tài nguyên
-  project: platform # Dự án của bạn
+  project: huan # Dự án của bạn
 spec:
   provider: terraform # Chỉ định Terraform làm nhà cung cấp IaC
   providerOptions:
@@ -11,7 +11,7 @@ spec:
       backendType: system # Hoặc s3, gcs, etc. theo cấu hình của bạn
       refresh: true
   repositoryOptions:
-    name: your-infra-git-repo # Tên kho Git được cấu hình trong Rafay
+    name: nim-test # Tên kho Git được cấu hình trong Rafay
     branch: main
     directoryPath: terraform/nvidia-nim-helm # Đường dẫn đến mã Terraform của bạn
   variables:
@@ -57,4 +57,4 @@ spec:
       value: $(resource.this.output.helm_release_status.value)$
     - name: service_endpoint
       value: $(resource.this.output.service_endpoint.value)$
-  version: v1
+  version: v0
