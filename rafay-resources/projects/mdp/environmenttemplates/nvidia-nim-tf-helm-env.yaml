@@ -2,7 +2,7 @@ apiVersion: eaas.envmgmt.io/v1
 kind: environmenttemplate
 metadata:
   name: nvidia-nim-tf-helm-env # Tên Mẫu Môi trường
-  project: huan # Dự án của bạn
+  project: mdp # Dự án của bạn
 spec:
   version: v0
   agents:
